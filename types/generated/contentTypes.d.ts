@@ -451,6 +451,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    customRegistrationLink: Schema.Attribute.String;
     date: Schema.Attribute.DateTime;
     description: Schema.Attribute.Blocks;
     eventUuid: Schema.Attribute.UID<''>;
@@ -459,7 +460,14 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
     location: Schema.Attribute.String;
+    maxRegistrationsAllowed: Schema.Attribute.Integer &
+      Schema.Attribute.Private &
+      Schema.Attribute.DefaultTo<1500>;
     note: Schema.Attribute.RichText;
+    participants: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::participant.participant'
+    >;
     poster: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     publishedAt: Schema.Attribute.DateTime;
     rules: Schema.Attribute.RichText;
@@ -513,10 +521,13 @@ export interface ApiParticipantParticipant extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    college: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     email: Schema.Attribute.Email;
+    event: Schema.Attribute.Relation<'manyToOne', 'api::event.event'>;
+    fieldOfStudy: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -527,7 +538,8 @@ export interface ApiParticipantParticipant extends Struct.CollectionTypeSchema {
     payment: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     phone: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
-    reg_confirmation: Schema.Attribute.Boolean;
+    registrationStatus: Schema.Attribute.Boolean;
+    team: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

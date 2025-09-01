@@ -51,6 +51,20 @@
       "relation": "oneToMany",
       "target": "api::announcement.announcement",
       "mappedBy": "event"
+    },
+    "maxRegistrationsAllowed": {
+      "type": "integer",
+      "private": true,
+      "default": 1500
+    },
+    "participants": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::participant.participant",
+      "mappedBy": "event"
+    },
+    "customRegistrationLink": {
+      "type": "string"
     }
   }
 }

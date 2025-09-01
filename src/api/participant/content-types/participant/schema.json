@@ -20,7 +20,7 @@
     "phone": {
       "type": "integer"
     },
-    "reg_confirmation": {
+    "registrationStatus": {
       "type": "boolean"
     },
     "payment": {
@@ -32,6 +32,21 @@
         "videos",
         "audios"
       ]
+    },
+    "event": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::event.event",
+      "inversedBy": "participants"
+    },
+    "team": {
+      "type": "string"
+    },
+    "college": {
+      "type": "string"
+    },
+    "fieldOfStudy": {
+      "type": "string"
     }
   }
 }
